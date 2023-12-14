@@ -7,24 +7,24 @@
 
 import UIKit
 
-final class ConvertView: UIView {
+class ConvertView: UIView {
 
-    private lazy var resultLabel: UILabel = {
+    lazy var resultLabel: UILabel = {
         let resultLabel = UILabel()
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
         resultLabel.text = "0"
         resultLabel.textAlignment = .center
         resultLabel.textColor = UIColor(red: 22.0/255.0, green: 135.0/255.0, blue: 200.0/255.0, alpha: 1)
-        resultLabel.font = .boldSystemFont(ofSize: 75)
+        resultLabel.font = .boldSystemFont(ofSize: 80)
         return resultLabel
     }()
     
-    private lazy var resultUnitLabel: UILabel = {
+    lazy var resultUnitLabel: UILabel = {
         let resultUnitLabel = UILabel()
         resultUnitLabel.translatesAutoresizingMaskIntoConstraints = false
         resultUnitLabel.text = "Label"
-        resultUnitLabel.textColor = UIColor(red: 10.0/255.0, green: 85.0/255.0, blue: 93.0/255.0, alpha: 1)
-        resultUnitLabel.font = UIFont.boldSystemFont(ofSize: 35)
+        resultUnitLabel.textColor = UIColor(red: 22.0/255.0, green: 130.0/255.0, blue: 170.0/255.0, alpha: 1)
+        resultUnitLabel.font = UIFont.boldSystemFont(ofSize: 40)
         return resultUnitLabel
     }()
 
@@ -38,15 +38,18 @@ final class ConvertView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupViewHierarchy() {
+     func setupViewHierarchy() {
         addSubview(resultLabel)
         addSubview(resultUnitLabel)
     }
     
-    private func setupConstraints() {
+     func setupConstraints() {
         NSLayoutConstraint.activate([
+            resultLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            resultLabel.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 50),
             
-            
+            resultUnitLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            resultUnitLabel.topAnchor.constraint(equalTo: resultLabel.bottomAnchor, constant: 35)
         ])
     }
     
