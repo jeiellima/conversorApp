@@ -52,6 +52,7 @@ class ViewController: UIViewController {
         numberTextField.textColor = .white
         numberTextField.textAlignment = .center
         numberTextField.isUserInteractionEnabled = true
+        numberTextField.keyboardType = .decimalPad
         numberTextField.backgroundColor = UIColor(red: 95.0/255.0, green: 190.0/255.0, blue: 250.0/255.0, alpha: 1)
         numberTextField.layer.cornerRadius = 10
         view.addSubview(numberTextField)
@@ -115,20 +116,20 @@ class ViewController: UIViewController {
         switch unitLabel.text! {
             case "Temperatura":
                 unitLabel.text = "Peso"
-                buttonUnit1.setTitle("Quilograma (kg)", for: .normal)
-                buttonUnit2.setTitle("Libra (lb)", for: .normal)
+                buttonUnit1.setTitle("Quilograma", for: .normal)
+                buttonUnit2.setTitle("Libra", for: .normal)
             case "Peso":
                 unitLabel.text = "Moeda"
-                buttonUnit1.setTitle("Real (R$)", for: .normal)
-                buttonUnit2.setTitle("Dólar (US$)", for: .normal)
+                buttonUnit1.setTitle("Real(R$)", for: .normal)
+                buttonUnit2.setTitle("Dólar(US$)", for: .normal)
             case "Moeda":
                 unitLabel.text = "Distância"
-                buttonUnit1.setTitle("Metro (m)", for: .normal)
-                buttonUnit2.setTitle("Kilometros (km)", for: .normal)
+                buttonUnit1.setTitle("Metro", for: .normal)
+                buttonUnit2.setTitle("Kilometros", for: .normal)
             default:
                 unitLabel.text = "Temperatura"
-                buttonUnit1.setTitle("Celsius (ºC)", for: .normal)
-                buttonUnit2.setTitle("Farenheint (F)", for: .normal)
+                buttonUnit1.setTitle("Celsius", for: .normal)
+                buttonUnit2.setTitle("Farenheint", for: .normal)
         }
         convert(nil)
     }
@@ -153,6 +154,9 @@ class ViewController: UIViewController {
             default:
                 calcDistance()
         }
+        view.endEditing(true)
+        let result = Double(convertView.resultLabel.text!)!
+        convertView.resultLabel.text = String(format: "%.2f", result)
     }
     
     func calcTemp() {
@@ -169,22 +173,21 @@ class ViewController: UIViewController {
     func calcPeso() {
         guard let peso = Double(numberTextField.text!) else {return}
         if buttonUnit1.backgroundColor == colorDark {
-            convertView.resultUnitLabel.text = "Libra (lb)"
+            convertView.resultUnitLabel.text = "Libra"
             convertView.resultLabel.text = String(peso / 2.2046)
         } else {
-            convertView.resultUnitLabel.text = "Quilograma (kg)"
+            convertView.resultUnitLabel.text = "Quilograma"
             convertView.resultLabel.text = String(peso * 2.2046)
         }
-        
     }
     
     func calcMoeda() {
         guard let moeda = Double(numberTextField.text!) else {return}
         if buttonUnit1.backgroundColor == colorDark {
-            convertView.resultUnitLabel.text = "Dólar (US$)"
+            convertView.resultUnitLabel.text = "Dólar(US$)"
             convertView.resultLabel.text = String(moeda / 4.9)
         } else {
-            convertView.resultUnitLabel.text = "Real (R$)"
+            convertView.resultUnitLabel.text = "Real(R$)"
             convertView.resultLabel.text = String(moeda * 4.9)
         }
     }
@@ -192,10 +195,10 @@ class ViewController: UIViewController {
     func calcDistance() {
         guard let distance = Double(numberTextField.text!) else {return}
         if buttonUnit1.backgroundColor == colorDark {
-            convertView.resultUnitLabel.text = "Kilometros (km)"
+            convertView.resultUnitLabel.text = "Kilometros"
             convertView.resultLabel.text = String(distance / 1000)
         } else {
-            convertView.resultUnitLabel.text = "Metros (m)"
+            convertView.resultUnitLabel.text = "Metros"
             convertView.resultLabel.text = String(distance * 1000)
         }
     }
@@ -220,7 +223,6 @@ struct UIViewControllerPreview<ViewController: UIViewController>: UIViewControll
         return
     }
 }
-
 #endif
 
 #if canImport(SwiftUI) && DEBUG
